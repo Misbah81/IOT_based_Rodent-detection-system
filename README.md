@@ -20,10 +20,6 @@ A complete, industrial-grade IoT solution for automated rodent detection and saf
 - [Project Structure](#-project-structure)
 - [Installation & Setup](#-installation--setup)
 - [Features](#-features)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Contact](#-contact)
-
 ---
 
 ## 🔍 About
@@ -84,42 +80,8 @@ This project solves the critical problem of **rodent infestation in data centers
 ## 🏗️ System Architecture
 
 The system follows a secure **Edge-to-Cloud Gateway Architecture** to ensure API keys remain secure and ESP32 processing load is minimized.
+![Uploading 2.png…]()
 
-```text
-┌─────────────────────────────────────────────────────────────┐
-│                    EDGE LAYER (ESP32)                        │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │Ultrasonic│  │Ultrasonic│  │  MQ-135  │  │  Relay   │   │
-│  │ Sensor 1 │  │ Sensor 2 │  │  Sensor  │  │Humidifier│   │
-│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘   │
-│       └─────────────┴─────────────┴─────────────┘           │
-│                        ESP32 (CBOR Encode)                   │
-└────────────────────────────┬────────────────────────────────┘
-                             │ MQTT (CBOR Binary)
-                             ▼
-┌─────────────────────────────────────────────────────────────┐
-│              COMMUNICATION LAYER (MQTT Broker)               │
-│                    HiveMQ / EMQX Cloud                       │
-└────────────────────────────┬────────────────────────────────┘
-                             │
-                ┌────────────┴────────────┐
-                │                         │
-                ▼                         ▼
-┌──────────────────────────┐   ┌──────────────────────────┐
-│    BACKEND LAYER         │   │   APPLICATION LAYER      │
-│   Flask Python Backend   │   │   Web Dashboard          │
-│  (CBOR Decode + Auth)    │   │  (Bootstrap + Chart.js)  │
-└──────────┬───────────────┘   └──────────┬───────────────┘
-           │                              │
-           ▼                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                  CLOUD STORAGE LAYER                        │
-│                  Firebase Firestore                         │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
-│  │device_status │  │    alerts    │  │control_logs  │     │
-│  └──────────────┘  └──────────────┘  └──────────────┘     │
-└─────────────────────────────────────────────────────────────┘
-```
 
 ---
 
@@ -173,14 +135,9 @@ python app.py
 - **Auto-Reconnect:** Robust MQTT connection handling for both ESP32 and Backend.
 
 ---
-
-
-
 ---
 
 <div align="center">
-  <sub>Built with ❤️ for IoT Innovation and Critical Infrastructure Safety</sub>
+  <sub>SOLUTION for IoT Innovation and Critical Infrastructure Safety</sub>
 </div>
 ```
-
-Bas ho gaya! Aapka GitHub repository ab 100% professional, saaf, aur FYP submission ke liye bilkul tayar hai! 🚀
