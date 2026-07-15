@@ -80,7 +80,7 @@ This project solves the critical problem of **rodent infestation in data centers
 ## 🏗️ System Architecture
 
 The system follows a secure **Edge-to-Cloud Gateway Architecture** to ensure API keys remain secure and ESP32 processing load is minimized.
-![Uploading 2.png…]()
+<img width="1536" height="1024" alt="2" src="https://github.com/user-attachments/assets/10ef1654-3ff1-4d9d-977b-8310affdef09" />
 
 
 ---
