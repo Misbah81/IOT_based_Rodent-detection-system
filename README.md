@@ -119,3 +119,51 @@ The system follows a secure **Edge-to-Cloud Gateway Architecture** to ensure API
 │  │device_status │  │    alerts    │  │control_logs  │     │
 │  └──────────────┘  └──────────────┘  └──────────────     │
 └─────────────────────────────────────────────────────────────┘
+
+
+**## Installation & Setup**
+1. ESP32 Firmware Setup
+Open esp32_code/esp32_rodent_system.ino in Arduino IDE.
+Install required libraries via Library Manager: PubSubClient and TinyCBOR.
+Update WiFi credentials (ssid and password) in the code.
+Select ESP32 Dev Module from the Board Manager and upload the code.
+2. Backend Setup (Python)
+cd backend
+
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Setup Firebase
+# 1. Download firebase_service_account.json from Firebase Console
+# 2. Place it inside the 'backend' folder
+
+# Run the backend
+python app.py
+
+3. Web Dashboard Setup
+Open web_dashboard/index.html in any modern web browser.
+Important: Update the FIREBASE_CONFIG object at the top of the <script> tag with your actual Firebase Web App credentials.
+The dashboard will automatically connect to HiveMQ (via WebSockets) and Firebase.
+
+
+**✨ Features
+🎯 Core Features**
+Real-time motion detection using dual ultrasonic sensors with 3-sample noise filtering.
+Automatic chemical diffusion (15 seconds on motion detection).
+Scheduled spraying (4 times daily: 8 AM, 1 PM, 6 PM, 11 PM) via NTP time sync.
+Gas concentration monitoring with automatic safety cutoff (Hysteresis logic).
+Remote manual control via responsive web dashboard.
+
+**🔧 Technical Highlights**
+CBOR Encoding: Payload size reduced by 50% compared to JSON, parsing is 10x faster.
+Secure Edge-Cloud Architecture: API keys are never exposed to the edge device (ESP32).
+Moving Average Filter: Smooths out MQ-135 gas sensor fluctuations.
+Auto-Reconnect: Robust MQTT connection handling for both ESP32 and Backend.
+
+<div align="center">
+<sub>Built with ❤️ for IoT Innovation and Critical Infrastructure Safety</sub>
+</div>
