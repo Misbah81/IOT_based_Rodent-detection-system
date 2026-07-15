@@ -1,10 +1,10 @@
 #  IOT-Based Intelligent Rodent Monitoring and Chemical Diffusion System for Critical Infrastructure
-# 🐀 IoT-Based Intelligent Rodent Monitoring and Chemical Diffusion System for Critical Infrastructure
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform: ESP32](https://img.shields.io/badge/Platform-ESP32-blue)](https://www.espressif.com/en/products/socs/esp32)
 [![Protocol: MQTT](https://img.shields.io/badge/Protocol-MQTT-orange)](https://mqtt.org/)
 [![Database: Firebase](https://img.shields.io/badge/Database-Firebase-red)](https://firebase.google.com/)
+[![Encoding: CBOR](https://img.shields.io/badge/Encoding-CBOR-purple)](https://cbor.io/)
 
 A complete, industrial-grade IoT solution for automated rodent detection and safe chemical repellent deployment in data centers and critical infrastructure using ESP32, MQTT with CBOR encoding, Firebase Firestore, and a real-time web dashboard.
 
@@ -41,7 +41,7 @@ This project solves the critical problem of **rodent infestation in data centers
 - Traditional pest control methods (liquids/poisons) are unsafe for sensitive electronics.
 - Lack of real-time monitoring and automated response systems in server rooms.
 
-### Our Solution
+###  Solution
 ✅ **Ultrasonic motion detection** (highly precise, replaces PIR)  
 ✅ **Automatic chemical diffusion** via ultrasonic humidifier  
 ✅ **Gas concentration monitoring** (MQ-135) for human/equipment safety  
@@ -88,7 +88,7 @@ The system follows a secure **Edge-to-Cloud Gateway Architecture** to ensure API
 ```text
 ┌─────────────────────────────────────────────────────────────┐
 │                    EDGE LAYER (ESP32)                        │
-│  ┌──────────  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
 │  │Ultrasonic│  │Ultrasonic│  │  MQ-135  │  │  Relay   │   │
 │  │ Sensor 1 │  │ Sensor 2 │  │  Sensor  │  │Humidifier│   │
 │  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘   │
@@ -97,10 +97,10 @@ The system follows a secure **Edge-to-Cloud Gateway Architecture** to ensure API
 └────────────────────────────┬────────────────────────────────┘
                              │ MQTT (CBOR Binary)
                              ▼
-─────────────────────────────────────────────────────────────┐
+┌─────────────────────────────────────────────────────────────┐
 │              COMMUNICATION LAYER (MQTT Broker)               │
 │                    HiveMQ / EMQX Cloud                       │
-────────────────────────────┬────────────────────────────────
+└────────────────────────────┬────────────────────────────────┘
                              │
                 ┌────────────┴────────────┐
                 │                         │
@@ -109,25 +109,30 @@ The system follows a secure **Edge-to-Cloud Gateway Architecture** to ensure API
 │    BACKEND LAYER         │   │   APPLICATION LAYER      │
 │   Flask Python Backend   │   │   Web Dashboard          │
 │  (CBOR Decode + Auth)    │   │  (Bootstrap + Chart.js)  │
-└──────────┬───────────────   └──────────┬───────────────┘
+└──────────┬───────────────┘   └──────────┬───────────────┘
            │                              │
            ▼                              ▼
-─────────────────────────────────────────────────────────────┐
+┌─────────────────────────────────────────────────────────────┐
 │                  CLOUD STORAGE LAYER                        │
 │                  Firebase Firestore                         │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
 │  │device_status │  │    alerts    │  │control_logs  │     │
-│  └──────────────┘  └──────────────┘  └──────────────     │
+│  └──────────────┘  └──────────────┘  └──────────────┘     │
 └─────────────────────────────────────────────────────────────┘
+```
 
+---
 
-**## Installation & Setup**
-1. ESP32 Firmware Setup
-Open esp32_code/esp32_rodent_system.ino in Arduino IDE.
-Install required libraries via Library Manager: PubSubClient and TinyCBOR.
-Update WiFi credentials (ssid and password) in the code.
-Select ESP32 Dev Module from the Board Manager and upload the code.
-2. Backend Setup (Python)
+## ⚙️ Installation & Setup
+
+### 1. ESP32 Firmware Setup
+1. Open `esp32_code/esp32_rodent_system.ino` in **Arduino IDE**.
+2. Install required libraries via Library Manager: `PubSubClient` and `TinyCBOR`.
+3. Update WiFi credentials (`ssid` and `password`) in the code.
+4. Select **ESP32 Dev Module** from the Board Manager and upload the code.
+
+### 2. Backend Setup (Python)
+```bash
 cd backend
 
 # Create and activate virtual environment
@@ -143,27 +148,39 @@ pip install -r requirements.txt
 
 # Run the backend
 python app.py
+```
 
-3. Web Dashboard Setup
-Open web_dashboard/index.html in any modern web browser.
-Important: Update the FIREBASE_CONFIG object at the top of the <script> tag with your actual Firebase Web App credentials.
-The dashboard will automatically connect to HiveMQ (via WebSockets) and Firebase.
+### 3. Web Dashboard Setup
+1. Open `web_dashboard/index.html` in any modern web browser (or use VS Code Live Server).
+2. **Important:** Update the `FIREBASE_CONFIG` object at the top of the `<script>` tag with your actual Firebase Web App credentials.
+3. The dashboard will automatically connect to HiveMQ (via WebSockets) and Firebase.
+
+---
+
+## ✨ Features
+
+### 🎯 Core Features
+- **Real-time motion detection** using dual ultrasonic sensors with 3-sample noise filtering.
+- **Automatic chemical diffusion** (15 seconds on motion detection).
+- **Scheduled spraying** (4 times daily: 8 AM, 1 PM, 6 PM, 11 PM) via NTP time sync.
+- **Gas concentration monitoring** with automatic safety cutoff (Hysteresis logic).
+- **Remote manual control** via responsive web dashboard.
+
+### 🔧 Technical Highlights
+- **CBOR Encoding:** Payload size reduced by 50% compared to JSON, parsing is 10x faster.
+- **Secure Edge-Cloud Architecture:** API keys are never exposed to the edge device (ESP32).
+- **Moving Average Filter:** Smooths out MQ-135 gas sensor fluctuations.
+- **Auto-Reconnect:** Robust MQTT connection handling for both ESP32 and Backend.
+
+---
 
 
-**✨ Features
-🎯 Core Features**
-Real-time motion detection using dual ultrasonic sensors with 3-sample noise filtering.
-Automatic chemical diffusion (15 seconds on motion detection).
-Scheduled spraying (4 times daily: 8 AM, 1 PM, 6 PM, 11 PM) via NTP time sync.
-Gas concentration monitoring with automatic safety cutoff (Hysteresis logic).
-Remote manual control via responsive web dashboard.
 
-**🔧 Technical Highlights**
-CBOR Encoding: Payload size reduced by 50% compared to JSON, parsing is 10x faster.
-Secure Edge-Cloud Architecture: API keys are never exposed to the edge device (ESP32).
-Moving Average Filter: Smooths out MQ-135 gas sensor fluctuations.
-Auto-Reconnect: Robust MQTT connection handling for both ESP32 and Backend.
+---
 
 <div align="center">
-<sub>Built with ❤️ for IoT Innovation and Critical Infrastructure Safety</sub>
+  <sub>Built with ❤️ for IoT Innovation and Critical Infrastructure Safety</sub>
 </div>
+```
+
+Bas ho gaya! Aapka GitHub repository ab 100% professional, saaf, aur FYP submission ke liye bilkul tayar hai! 🚀
