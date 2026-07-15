@@ -1,4 +1,4 @@
-#  IOT-Based Intelligent Rodent Monitoring and Chemical Diffusion System for Critical Infrastructure
+<img width="1536" height="1024" alt="2" src="https://github.com/user-attachments/assets/567d43f0-7885-4916-8ad3-a503dd7c8219" />#  IOT-Based Intelligent Rodent Monitoring and Chemical Diffusion System for Critical Infrastructure
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform: ESP32](https://img.shields.io/badge/Platform-ESP32-blue)](https://www.espressif.com/en/products/socs/esp32)
@@ -141,3 +141,10 @@ python app.py
   <sub>SOLUTION for IoT Innovation and Critical Infrastructure Safety</sub>
 </div>
 ```
+
+
+https://github.com/user-attachments/assets/ea8a831d-25a1-42b7-b2dd-bcea2b14b05b
+
+
+
+
